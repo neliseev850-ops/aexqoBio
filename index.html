@@ -80,12 +80,40 @@
             border-color: rgba(255, 255, 255, 0.3);
         }
 
-        .quote {
+        /* ===== ЦИТАТА (адаптивная) ===== */
+        .quote-block {
+            position: relative;
+            max-width: 640px;
+            margin: 0 auto;
+            padding-left: 1.5rem;
+            text-align: left;
+        }
+        .quote-block::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.3rem;
+            bottom: 0.3rem;
+            width: 2px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.05) 100%);
+            border-radius: 2px;
+        }
+        .quote-text {
             font-family: 'VT323', monospace;
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.65);
             font-style: italic;
-            line-height: 1.6;
+            letter-spacing: 0.02em;
+        }
+        @media (min-width: 768px) {
+            .quote-text {
+                font-size: 1.35rem;
+                line-height: 1.6;
+            }
+            .quote-block {
+                padding-left: 2rem;
+            }
         }
 
         .project-link {
@@ -194,7 +222,6 @@
             padding: 1rem 2rem;
         }
 
-        /* ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР ===== */
         #music-player {
             position: fixed;
             bottom: 2rem;
@@ -287,12 +314,15 @@
         </a>
     </nav>
 
-    <main class="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4">
+    <main class="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 py-24">
         <div class="text-glow"></div>
 
-        <p class="fade-in-up quote max-w-2xl mb-8">
-            «Это королевство падёт, и из пепла восстанёт новый порядок,<br>который пошатнёт сами основы мира!»
-        </p>
+        <!-- ЦИТАТА (адаптивная) -->
+        <div class="fade-in-up quote-block mb-10">
+            <p class="quote-text">
+                «Это королевство падёт, и из пепла восстанёт новый порядок, который пошатнёт сами основы мира!»
+            </p>
+        </div>
 
         <h1 class="fade-in-up text-4xl md:text-6xl font-bold tracking-tight mb-6 max-w-4xl leading-tight dot-font">
             Привет, я Никита
@@ -395,7 +425,7 @@
                 <div class="text-xs text-gray-500 mb-2 tracking-widest dot-font">27.02.2026</div>
                 <h3 class="text-lg font-semibold mb-3 dot-font">Визуальная новелла «Исход»</h3>
                 <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                    Романтическая визуальная новелла. Собрала популярность в учебном заведении.
+                    Романтическая визуальная история о двух героях: ангеле-снежко и девушке Алисе, который помогает ей справиться с тревожным расстройством. Была опубликована в тгк и полностью закончена 4 главами.
                 </p>
                 <span class="text-xs text-gray-500 dot-font">GameDev</span>
                 <div>
@@ -415,7 +445,7 @@
                 <div class="text-xs text-gray-500 mb-2 tracking-widest dot-font">07.06.2026</div>
                 <h3 class="text-lg font-semibold mb-3 dot-font">Нейросеть AiRa</h3>
                 <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                    Легковесная нейросеть на базе Grok. Протестирована в закрытом кругу.
+                    Легковесная нейросеть на базе Грока. Протестирована в закрытом кругу.
                 </p>
                 <span class="text-xs text-gray-500 dot-font">AI</span>
             </div>
@@ -493,7 +523,6 @@
     </footer>
 
     <script>
-        // ===== МУЗЫКА =====
         const music = document.getElementById('bg-music');
         const player = document.getElementById('music-player');
         const iconPlay = document.getElementById('icon-play');
@@ -529,7 +558,6 @@
             }
         }, { once: false });
 
-        // ===== ПЛАВНЫЙ СКРОЛЛ =====
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -541,7 +569,6 @@
         }
         requestAnimationFrame(raf);
 
-        // ===== 3D СФЕРА =====
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
