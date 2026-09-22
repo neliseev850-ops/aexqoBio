@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@aexqo | Digital Creator</title>
+    <title>Никита — Frontend / GameDev</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=VT323&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -14,8 +18,20 @@
         body {
             background-color: #050505;
             color: #ffffff;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Silkscreen', 'VT323', monospace;
+            letter-spacing: 0.02em;
             overflow-x: hidden;
+        }
+
+        h1, h2, h3, .dot-font {
+            font-family: 'Silkscreen', monospace;
+            letter-spacing: 0.05em;
+        }
+
+        p, span, a, div {
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            letter-spacing: 0.02em;
         }
 
         #canvas-container {
@@ -29,11 +45,11 @@
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(160, 160, 255, 0.08) 0%, rgba(0,0,0,0) 70%);
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, rgba(0,0,0,0) 70%);
             z-index: 0;
             pointer-events: none;
-            filter: blur(40px);
+            filter: blur(50px);
         }
 
         .primary-btn {
@@ -43,6 +59,7 @@
             cursor: pointer;
             border: none;
             text-decoration: none;
+            font-family: 'Silkscreen', monospace;
         }
         .primary-btn:hover {
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
@@ -56,17 +73,26 @@
             cursor: pointer;
             text-decoration: none;
             color: #fff;
+            font-family: 'Silkscreen', monospace;
         }
         .glass-btn:hover {
             background: rgba(255, 255, 255, 0.15);
             border-color: rgba(255, 255, 255, 0.3);
         }
 
+        .quote {
+            font-family: 'VT323', monospace;
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-style: italic;
+            line-height: 1.6;
+        }
+
         .project-link {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             padding: 0.5rem 1rem;
             border-radius: 999px;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -75,6 +101,7 @@
             text-decoration: none;
             transition: all 0.3s ease;
             margin-top: 1rem;
+            font-family: 'Silkscreen', monospace;
         }
         .project-link:hover {
             background: rgba(255, 255, 255, 0.1);
@@ -135,50 +162,21 @@
             transform: scale(1.08);
         }
 
-        .step-card {
-            position: relative;
-            padding: 2rem 1.5rem;
-            border-radius: 1.25rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.02);
-            transition: all 0.5s ease;
-            height: 100%;
+        .chip {
+            display: inline-block;
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            font-family: 'VT323', monospace;
         }
-        .step-card:hover {
-            border-color: rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.04);
-        }
-        .step-number {
-            font-size: 0.75rem;
-            letter-spacing: 0.2em;
-            color: rgba(255,255,255,0.4);
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-        }
-
-        .project-number {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            font-size: 4rem;
-            font-weight: 800;
-            color: rgba(255, 255, 255, 0.04);
-            line-height: 1;
-            pointer-events: none;
-            transition: color 0.5s ease;
-            z-index: 2;
-        }
-        .card:hover .project-number {
-            color: rgba(255, 255, 255, 0.08);
-        }
-
-        .stat-number {
-            font-size: 4rem;
-            font-weight: 700;
-            background: linear-gradient(180deg, #fff 0%, #666 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .chip:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
         }
 
         nav {
@@ -196,6 +194,66 @@
             padding: 1rem 2rem;
         }
 
+        /* ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР ===== */
+        #music-player {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 200;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #music-player:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+        #music-player svg {
+            width: 20px;
+            height: 20px;
+            color: #fff;
+        }
+        #music-player.playing {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+            50% { box-shadow: 0 0 0 12px rgba(255, 255, 255, 0); }
+        }
+
+        .equalizer {
+            display: flex;
+            gap: 2px;
+            align-items: flex-end;
+            height: 16px;
+        }
+        .equalizer span {
+            display: block;
+            width: 2px;
+            background: #fff;
+            border-radius: 1px;
+            animation: eq 1s infinite ease-in-out;
+        }
+        .equalizer span:nth-child(1) { animation-delay: 0s; height: 40%; }
+        .equalizer span:nth-child(2) { animation-delay: 0.2s; height: 80%; }
+        .equalizer span:nth-child(3) { animation-delay: 0.4s; height: 60%; }
+        .equalizer span:nth-child(4) { animation-delay: 0.6s; height: 100%; }
+
+        @keyframes eq {
+            0%, 100% { transform: scaleY(0.3); }
+            50% { transform: scaleY(1); }
+        }
+
         section {
             position: relative;
             z-index: 10;
@@ -206,9 +264,21 @@
 
     <div id="canvas-container"></div>
 
+    <div id="music-player" onclick="toggleMusic()">
+        <svg id="icon-play" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"/>
+        </svg>
+        <div id="icon-eq" class="equalizer" style="display: none;">
+            <span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+    <audio id="bg-music" loop>
+        <source src="krylya.mp3" type="audio/mpeg">
+    </audio>
+
     <nav id="navbar" class="flex justify-between items-center">
-        <div class="text-xl font-bold tracking-tight">@aexqo</div>
-        <div class="hidden md:flex items-center gap-8 text-sm text-gray-400">
+        <div class="text-lg font-bold tracking-tight dot-font">@aexqo</div>
+        <div class="hidden md:flex items-center gap-8 text-sm text-gray-400 dot-font">
             <a href="#about" class="hover:text-white transition">Обо мне</a>
             <a href="#projects" class="hover:text-white transition">Проекты</a>
         </div>
@@ -220,145 +290,114 @@
     <main class="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4">
         <div class="text-glow"></div>
 
-        <h1 class="fade-in-up text-5xl md:text-7xl font-bold tracking-tight mb-6 max-w-4xl leading-tight">
-            Перевожу с человеческого<br>на машинный и обратно.
-        </h1>
-
-        <p class="fade-in-up text-lg md:text-xl text-gray-400 mb-10 max-w-2xl font-light">
-            Веб-сайты, игры, приложения и нейросети. От идеи до релиза.
+        <p class="fade-in-up quote max-w-2xl mb-8">
+            «Это королевство падёт, и из пепла восстанёт новый порядок,<br>который пошатнёт сами основы мира!»
         </p>
 
-        <div class="fade-in-up mb-20">
+        <h1 class="fade-in-up text-4xl md:text-6xl font-bold tracking-tight mb-6 max-w-4xl leading-tight dot-font">
+            Привет, я Никита
+        </h1>
+
+        <p class="fade-in-up text-lg md:text-xl text-gray-400 mb-10 max-w-2xl">
+            Начинающий в IT. Специализируюсь на фронтенде и геймдеве.
+        </p>
+
+        <div class="fade-in-up mb-16 flex flex-col sm:flex-row gap-4">
             <a href="#projects" class="primary-btn px-8 py-4 rounded-full font-semibold text-sm tracking-wide inline-block">
                 Смотреть проекты
+            </a>
+            <a href="#about" class="glass-btn px-8 py-4 rounded-full font-semibold text-sm tracking-wide inline-block">
+                Обо мне
             </a>
         </div>
     </main>
 
-    <section id="about" class="py-32 px-4 max-w-6xl mx-auto">
-        <div class="text-center mb-20 fade-in-up">
-            <div class="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs tracking-widest text-gray-400 mb-6 uppercase">
+    <section id="about" class="py-32 px-4 max-w-5xl mx-auto">
+        <div class="text-center mb-16 fade-in-up">
+            <div class="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs tracking-widest text-gray-400 mb-6 uppercase dot-font">
                 Обо мне
             </div>
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
-                Кто такой <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">@aexqo</span>?
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 tracking-tight dot-font">
+                Кто я такой
             </h2>
-            <p class="text-gray-400 max-w-2xl mx-auto font-light">
-                Начинающий разработчик, создающий инди-проекты на стыке кода, игр и искусственного интеллекта.
+        </div>
+
+        <div class="card fade-in-up p-8 md:p-12 mb-8">
+            <p class="text-gray-300 leading-relaxed mb-4 text-lg">
+                Меня зовут <span class="text-white font-semibold">Никита</span>. Я начинающий разработчик из IT, и мне нравится разрабатывать классные и занимательные проекты.
+            </p>
+            <p class="text-gray-400 leading-relaxed mb-4">
+                Умею создавать игры в движке, билдить их. Разбираюсь в UI и пишу фронтенд. Не считаю себя гением в коде, но если берусь за проект — довожу до результата.
+            </p>
+            <p class="text-gray-400 leading-relaxed">
+                Открыт к новым проектам и предложениям по реализации. Пишу на заказ.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="card fade-in-up">
-                <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
-                    <span class="text-lg font-bold text-gray-400">01</span>
-                </div>
-                <h3 class="text-xl font-semibold mb-3">GameDev & Storytelling</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">
-                    Создание визуальных новелл и игр. От проработки сценария до реализации механик.
-                </p>
-            </div>
-
-            <div class="card fade-in-up">
-                <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
-                    <span class="text-lg font-bold text-gray-400">02</span>
-                </div>
-                <h3 class="text-xl font-semibold mb-3">AI Integration</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">
-                    Разработка и тестирование нейросетей на базе Claude и Grok. Промпт-инжиниринг.
-                </p>
-            </div>
-
-            <div class="card fade-in-up">
-                <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
-                    <span class="text-lg font-bold text-gray-400">03</span>
-                </div>
-                <h3 class="text-xl font-semibold mb-3">Web & App Development</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">
-                    Разработка веб-сайтов, приложений и Android-приложений.
-                </p>
-            </div>
+        <div class="fade-in-up flex flex-wrap justify-center gap-3">
+            <span class="chip">GameDev</span>
+            <span class="chip">Frontend</span>
+            <span class="chip">UI</span>
+            <span class="chip">Движки</span>
+            <span class="chip">Сборка игр</span>
         </div>
     </section>
 
-    <section class="py-32 px-4 max-w-6xl mx-auto">
-        <div class="text-center mb-20 fade-in-up">
-            <div class="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs tracking-widest text-gray-400 mb-6 uppercase">
+    <section class="py-24 px-4 max-w-5xl mx-auto">
+        <div class="text-center mb-16 fade-in-up">
+            <div class="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs tracking-widest text-gray-400 mb-6 uppercase dot-font">
                 Процесс
             </div>
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight dot-font">
                 Как я работаю
             </h2>
-            <p class="text-gray-400 max-w-2xl mx-auto font-light">
-                От идеи до релиза — прозрачный процесс разработки.
-            </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="step-card fade-in-up">
-                <div class="step-number">Шаг 01</div>
-                <h3 class="text-lg font-semibold mb-3">Идея</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">
-                    Выбор концепта, анализ аудитории и постановка целей проекта.
-                </p>
+            <div class="card fade-in-up">
+                <div class="text-xs tracking-widest text-gray-500 mb-4 uppercase dot-font">01</div>
+                <h3 class="text-lg font-semibold mb-3 dot-font">Идея</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Обсуждаем концепт и цели проекта.</p>
             </div>
-
-            <div class="step-card fade-in-up">
-                <div class="step-number">Шаг 02</div>
-                <h3 class="text-lg font-semibold mb-3">Разработка</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">
-                    Написание кода, сценария или архитектуры приложения.
-                </p>
+            <div class="card fade-in-up">
+                <div class="text-xs tracking-widest text-gray-500 mb-4 uppercase dot-font">02</div>
+                <h3 class="text-lg font-semibold mb-3 dot-font">Разработка</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Пишу код, собираю, тестирую.</p>
             </div>
-
-            <div class="step-card fade-in-up">
-                <div class="step-number">Шаг 03</div>
-                <h3 class="text-lg font-semibold mb-3">Тест</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">
-                    Проверка на фокус-группе, сбор фидбека и доработка.
-                </p>
+            <div class="card fade-in-up">
+                <div class="text-xs tracking-widest text-gray-500 mb-4 uppercase dot-font">03</div>
+                <h3 class="text-lg font-semibold mb-3 dot-font">Правки</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Вношу изменения по фидбеку.</p>
             </div>
-
-            <div class="step-card fade-in-up">
-                <div class="step-number">Шаг 04</div>
-                <h3 class="text-lg font-semibold mb-3">Релиз</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">
-                    Публикация продукта, продвижение и поддержка.
-                </p>
+            <div class="card fade-in-up">
+                <div class="text-xs tracking-widest text-gray-500 mb-4 uppercase dot-font">04</div>
+                <h3 class="text-lg font-semibold mb-3 dot-font">Релиз</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Отдаю готовый продукт.</p>
             </div>
         </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- ПРОЕКТЫ (с картинками) -->
-    <!-- ========================================== -->
-    <section id="projects" class="py-32 px-4 max-w-6xl mx-auto">
-        <div class="text-center mb-20 fade-in-up">
-            <div class="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs tracking-widest text-gray-400 mb-6 uppercase">
-                Портфолио
+    <section id="projects" class="py-24 px-4 max-w-6xl mx-auto">
+        <div class="text-center mb-16 fade-in-up">
+            <div class="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs tracking-widest text-gray-400 mb-6 uppercase dot-font">
+                Проекты
             </div>
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
-                Избранные работы
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight dot-font">
+                Что я сделал
             </h2>
-            <p class="text-gray-400 max-w-2xl mx-auto font-light">
-                Проекты, которые я реализовал за последний год.
-            </p>
         </div>
 
-        <!-- Первый ряд: 3 проекта -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <!-- 01 - Исход -->
             <div class="card fade-in-up">
-                <div class="project-number">01</div>
                 <div class="project-image">
                     <img src="2b1d95e8-b060-4a9e-b962-9a2a064deabe.jpg" alt="Визуальная новелла «Исход»">
                 </div>
-                <div class="text-xs text-gray-500 mb-2 tracking-widest">27.02.2026</div>
-                <h3 class="text-xl font-semibold mb-3">Визуальная новелла «Исход»</h3>
+                <div class="text-xs text-gray-500 mb-2 tracking-widest dot-font">27.02.2026</div>
+                <h3 class="text-lg font-semibold mb-3 dot-font">Визуальная новелла «Исход»</h3>
                 <p class="text-gray-400 text-sm leading-relaxed mb-4">
                     Романтическая визуальная новелла. Собрала популярность в учебном заведении.
                 </p>
-                <span class="text-xs text-purple-400">GameDev</span>
+                <span class="text-xs text-gray-500 dot-font">GameDev</span>
                 <div>
                     <a href="https://t.me/Ishodnovela" target="_blank" class="project-link">
                         Открыть канал
@@ -369,32 +408,28 @@
                 </div>
             </div>
 
-            <!-- 02 - AiRa -->
             <div class="card fade-in-up">
-                <div class="project-number">02</div>
                 <div class="project-image">
                     <img src="1e08b871-a802-403a-b97b-4abbdc084784.jpg" alt="Нейросеть AiRa">
                 </div>
-                <div class="text-xs text-gray-500 mb-2 tracking-widest">07.06.2026</div>
-                <h3 class="text-xl font-semibold mb-3">Нейросеть AiRa</h3>
+                <div class="text-xs text-gray-500 mb-2 tracking-widest dot-font">07.06.2026</div>
+                <h3 class="text-lg font-semibold mb-3 dot-font">Нейросеть AiRa</h3>
                 <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                    Легковесная нейросеть на базе Grok. Протестирована в закрытом кругу общения.
+                    Легковесная нейросеть на базе Grok. Протестирована в закрытом кругу.
                 </p>
-                <span class="text-xs text-blue-400">AI / ML</span>
+                <span class="text-xs text-gray-500 dot-font">AI</span>
             </div>
 
-            <!-- 03 - hereAi -->
             <div class="card fade-in-up">
-                <div class="project-number">03</div>
                 <div class="project-image">
                     <img src="37ac8afa-c9a6-464d-9601-735621cae0fd.jpg" alt="Нейросеть hereAi">
                 </div>
-                <div class="text-xs text-gray-500 mb-2 tracking-widest">05.07.2026</div>
-                <h3 class="text-xl font-semibold mb-3">Нейросеть hereAi</h3>
+                <div class="text-xs text-gray-500 mb-2 tracking-widest dot-font">05.07.2026</div>
+                <h3 class="text-lg font-semibold mb-3 dot-font">Нейросеть hereAi</h3>
                 <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                    Усовершенствованная нейросеть на базе Claude. Активная стадия разработки.
+                    Усовершенствованная нейросеть на базе Claude.
                 </p>
-                <span class="text-xs text-cyan-400">AI / ML</span>
+                <span class="text-xs text-gray-500 dot-font">AI</span>
                 <div>
                     <a href="https://hereai.ru" target="_blank" class="project-link">
                         Открыть сайт
@@ -406,66 +441,40 @@
             </div>
         </div>
 
-        <!-- Второй ряд: 2 проекта (Android App) -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            <!-- 04 - Fill -->
             <div class="card fade-in-up">
-                <div class="project-number">04</div>
                 <div class="project-image">
                     <img src="4229f17d-8557-48c0-8d0d-03186e368ad5.jpg" alt="Fill">
                 </div>
-                <div class="text-xs text-gray-500 mb-2 tracking-widest">Работа на заказ</div>
-                <h3 class="text-xl font-semibold mb-3">Fill</h3>
+                <div class="text-xs text-gray-500 mb-2 tracking-widest dot-font">Работа на заказ</div>
+                <h3 class="text-lg font-semibold mb-3 dot-font">Fill</h3>
                 <p class="text-gray-400 text-sm leading-relaxed mb-4">
                     Android-приложение для автоматического заполнения клеток по таблицам.
                 </p>
-                <span class="text-xs text-emerald-400">Android App</span>
+                <span class="text-xs text-gray-500 dot-font">Android</span>
             </div>
 
-            <!-- 05 - FastCalculator -->
             <div class="card fade-in-up">
-                <div class="project-number">05</div>
                 <div class="project-image">
                     <img src="55538938-4fc7-4541-99f2-e36bcc8457bd.jpg" alt="FastCalculator">
                 </div>
-                <div class="text-xs text-gray-500 mb-2 tracking-widest">Работа на заказ</div>
-                <h3 class="text-xl font-semibold mb-3">FastCalculator</h3>
+                <div class="text-xs text-gray-500 mb-2 tracking-widest dot-font">Работа на заказ</div>
+                <h3 class="text-lg font-semibold mb-3 dot-font">FastCalculator</h3>
                 <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                    Android-приложение для выполнения быстрых и точных расчётов.
+                    Android-приложение для быстрых и точных расчётов.
                 </p>
-                <span class="text-xs text-orange-400">Android App</span>
+                <span class="text-xs text-gray-500 dot-font">Android</span>
             </div>
         </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- РЕЗУЛЬТАТЫ -->
-    <!-- ========================================== -->
-    <section class="py-32 px-4 max-w-6xl mx-auto">
-        <div class="text-center mb-20 fade-in-up">
-            <div class="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs tracking-widest text-gray-400 mb-6 uppercase">
-                Результаты
-            </div>
-            <h2 class="text-4xl md:text-5xl font-bold tracking-tight">
-                Результаты
-            </h2>
-        </div>
-
-        <div class="max-w-md mx-auto text-center">
-            <div class="card fade-in-up">
-                <div class="stat-number mb-3 counter" data-target="5" data-suffix="+">0</div>
-                <div class="text-gray-400 text-sm tracking-widest uppercase">Реализованных проектов</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-32 px-4 max-w-4xl mx-auto text-center">
+    <section class="py-24 px-4 max-w-3xl mx-auto text-center">
         <div class="card fade-in-up p-12">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
-                Связаться со мной
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 tracking-tight dot-font">
+                Есть идея?
             </h2>
-            <p class="text-gray-400 mb-8 font-light">
-                Открыт к общению, коллаборациям и новым идеям.
+            <p class="text-gray-400 mb-8">
+                Открыт к проектам, коллаборациям и предложениям. Пиши.
             </p>
             <a href="https://t.me/aexqo" target="_blank" class="primary-btn px-8 py-4 rounded-full font-semibold text-sm tracking-wide inline-block">
                 Написать в Telegram
@@ -475,15 +484,52 @@
 
     <footer class="relative z-10 border-t border-white/5 py-12 px-4">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-2xl font-bold tracking-tight">@aexqo</div>
-            <div class="flex gap-6 text-sm text-gray-400">
+            <div class="text-lg font-bold tracking-tight dot-font">@aexqo</div>
+            <div class="flex gap-6 text-sm text-gray-400 dot-font">
                 <a href="https://t.me/aexqo" target="_blank" class="hover:text-white transition">Telegram</a>
             </div>
-            <div class="text-xs text-gray-600">© 2026 @aexqo. Все права защищены.</div>
+            <div class="text-xs text-gray-600 dot-font">© 2026 Никита</div>
         </div>
     </footer>
 
     <script>
+        // ===== МУЗЫКА =====
+        const music = document.getElementById('bg-music');
+        const player = document.getElementById('music-player');
+        const iconPlay = document.getElementById('icon-play');
+        const iconEq = document.getElementById('icon-eq');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                iconPlay.style.display = 'block';
+                iconEq.style.display = 'none';
+                player.classList.remove('playing');
+            } else {
+                music.play().catch(e => console.log('Музыка не загружена:', e));
+                iconPlay.style.display = 'none';
+                iconEq.style.display = 'flex';
+                player.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        }
+
+        let musicStarted = false;
+        document.addEventListener('click', () => {
+            if (!musicStarted && music.paused) {
+                music.volume = 0.3;
+                music.play().then(() => {
+                    musicStarted = true;
+                    isPlaying = true;
+                    iconPlay.style.display = 'none';
+                    iconEq.style.display = 'flex';
+                    player.classList.add('playing');
+                }).catch(() => {});
+            }
+        }, { once: false });
+
+        // ===== ПЛАВНЫЙ СКРОЛЛ =====
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -495,6 +541,7 @@
         }
         requestAnimationFrame(raf);
 
+        // ===== 3D СФЕРА =====
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -506,10 +553,10 @@
         container.appendChild(renderer.domElement);
 
         scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-        const light1 = new THREE.PointLight(0x6666ff, 2, 20);
+        const light1 = new THREE.PointLight(0xffffff, 2, 20);
         light1.position.set(5, 5, 5);
         scene.add(light1);
-        const light2 = new THREE.PointLight(0xffffff, 1, 20);
+        const light2 = new THREE.PointLight(0xaaaaaa, 1, 20);
         light2.position.set(-5, -5, 5);
         scene.add(light2);
 
@@ -519,7 +566,7 @@
             wireframe: true,
             transparent: true,
             opacity: 0.4,
-            emissive: 0x333355,
+            emissive: 0x333344,
             emissiveIntensity: 0.5
         });
         const sphere = new THREE.Mesh(geometry, material);
@@ -527,7 +574,7 @@
 
         const innerGeometry = new THREE.IcosahedronGeometry(1.9, 2);
         const innerMaterial = new THREE.MeshBasicMaterial({
-            color: 0x6666ff,
+            color: 0x888899,
             wireframe: true,
             transparent: true,
             opacity: 0.1
@@ -594,33 +641,6 @@
             if (window.scrollY > 50) navbar.classList.add('scrolled');
             else navbar.classList.remove('scrolled');
         });
-
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const el = entry.target;
-                    const target = parseInt(el.getAttribute('data-target'));
-                    const suffix = el.getAttribute('data-suffix') || '';
-                    let current = 0;
-                    const duration = 1500;
-                    const stepTime = 16;
-                    const increment = target / (duration / stepTime);
-
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= target) {
-                            current = target;
-                            clearInterval(timer);
-                        }
-                        el.textContent = Math.floor(current) + suffix;
-                    }, stepTime);
-
-                    counterObserver.unobserve(el);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
